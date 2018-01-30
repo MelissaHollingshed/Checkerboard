@@ -6,26 +6,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="vBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="checkerboard.FXMLCheckerboardController">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="Grid">
-            <items>
-              <MenuItem mnemonicParsing="false" text="16x16" />
-              <MenuItem mnemonicParsing="false" text="10x10" />
-              <MenuItem mnemonicParsing="false" text="8x8" />
-              <MenuItem mnemonicParsing="false" text="3x3" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Colors">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Default" />
-              <MenuItem mnemonicParsing="false" text="Blue" />
-            </items>
-          </Menu>
-        </menus>
+      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="519.0">
+         <menus>
+            <Menu fx:id="gridMenu" mnemonicParsing="false" text="Grid">
+               <items>
+                  <MenuItem fx:id="size16MenuItem" mnemonicParsing="false" onAction="#changeSize" text="16 x 16" />
+                  <MenuItem fx:id="size10MenuItem" mnemonicParsing="false" onAction="#changeSize" text="10 x 10" />
+                  <MenuItem fx:id="size8MenuItem" mnemonicParsing="false" onAction="#changeSize" text="8 x 8" />
+                  <MenuItem fx:id="size3MenuItem" mnemonicParsing="false" onAction="#changeSize" text="3 x 3" />
+               </items>
+            </Menu>
+            <Menu id="colorsMenu" fx:id="colorsMenu" mnemonicParsing="false" text="Colors">
+               <items>
+                  <MenuItem fx:id="defaultMenuItem" mnemonicParsing="false" onAction="#changeColor" text="Default" />
+                  <MenuItem fx:id="blueMenuItem" mnemonicParsing="false" onAction="#changeColor" text="Blue" />
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
-      <AnchorPane prefHeight="368.0" prefWidth="600.0" />
+      <VBox fx:id="vBoxDisplayArea">
+        <AnchorPane fx:id="anchorPane" VBox.vgrow="ALWAYS" />
+      </VBox>
    </children>
 </VBox>
