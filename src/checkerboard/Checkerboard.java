@@ -5,33 +5,115 @@
  */
 package checkerboard;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
  * @author Melissah
  */
-public class Checkerboard extends Application {
+public class Checkerboard {
+    protected double boardHeight;
+    protected double boardWidth;
+    protected double rectangleHeight;
+    protected double rectangleWidth;
+    protected int numCols;
+    protected int numRows;
+  
+    private AnchorPane gameboard = null;
+    protected Color lightColor;
+    protected Color darkColor;
     
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLCheckerboard.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+    public Checkerboard(int numRows, int numCols, double boardWidth, double boardHeight, 
+            Color lightColor, Color darkColor) {
+        this.numRows = numRows;
+        this.numCols = numCols;
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.lightColor = lightColor;
+        this.darkColor = darkColor;
     }
     
-}
+   /* public Checkerboard(int numRows, int numCols, double boardWidth, double boardHeight, Color lightColor, Color darkColor) {
+        this(numRows, numCols, boardWidth, boardHeight);
+        this.lightColor = lightColor;
+        this.darkColor = darkColor;
+    }*/
+    
+    public AnchorPane build() {
+        // Calculate the max width and height of the board squares using the 
+        // smallest board dimension
+        if (boardWidth < boardHeight) {
+            rectangleWidth = boardWidth / numCols;
+            rectangleHeight = boardWidth / numRows;
+        }
+        else {
+           rectangleWidth = boardHeight / numCols;
+           rectangleHeight = boardHeight / numRows; 
+        }
+        
+        gameboard = new AnchorPane();
+                 
+        // Create board squares
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                
+                // Create board square
+                Rectangle boardSquare = new Rectangle();
+                boardSquare.setWidth(rectangleWidth);
+                boardSquare.setHeight(rectangleHeight);
+                boardSquare.setX(rectangleWidth * j);
+                boardSquare.setY(rectangleHeight * i);
+            
+                // Assign board square color
+                if ((j % 2 == 0 && i % 2 != 0) || (j % 2 != 0 && i % 2 == 0)) {
+                    boardSquare.setFill(darkColor);
+                }
+                else {
+                    boardSquare.setFill(lightColor);
+                }
+            
+                // Add board square to anchor pane
+                gameboard.getChildren().add(boardSquare);
+            }
+        }            
+        return gameboard;
+    }
+    
+    public AnchorPane getBoard() {
+        return gameboard;
+    }
+    
+    public int getNumRows() {
+        return numRows;
+    }
+    
+    public int getNumCols() {
+        return numCols;
+    }
+    
+    public double getWidth() {
+        return boardWidth;
+    }
+    
+    public double getHeight() {
+        return boardHeight;
+    }
+    
+    public Color getLightColor() {
+        return lightColor;
+    }
+    
+    public Color getDarkColor() {
+        return darkColor;
+    }
+    
+    public double getRectangleWidth() {
+        return rectangleWidth;
+    }
+    
+    public double getRectangleHeight() {
+        return rectangleHeight;
+    }
+    }
